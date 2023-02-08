@@ -17,6 +17,8 @@ jobs:
 
     - run: pip install -r requirements.txt 
     - run: pyinstaller -F mlsetup.py
-    - uses: actions/upload-artifact@v2
-      with:
-        path: dist/*
+    - name: get datat
+      run: ls -ltrh 
+#    - uses: actions/upload-artifact@v2
+#      with:
+#        path: dist/*
