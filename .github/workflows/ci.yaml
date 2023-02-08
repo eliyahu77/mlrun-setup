@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -61,7 +61,7 @@ jobs:
       if: github.event_name == 'release'
       with:
         release-tag: ${{ env.MLRUNSETUP_TAG }}
-        files: provctl-*
+        files: dist/*
         repo-token: ${{ secrets.GITHUB_TOKEN }      
       
 #    - uses: actions/upload-artifact@v2
