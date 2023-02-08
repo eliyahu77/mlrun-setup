@@ -19,6 +19,9 @@ jobs:
     - run: pyinstaller -F mlsetup.py
     - name: get datat
       run: ls -ltrh 
+    - name: get datat
+      run: ls dist/
+      
 #    - uses: actions/upload-artifact@v2
 #      with:
 #        path: dist/*
