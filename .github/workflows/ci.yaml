@@ -57,7 +57,7 @@ jobs:
       run: ls dist/
       
     - name: Upload binaries (${{ matrix.os }}:${{ matrix.arch }})
-      uses: AButler/upload-release-assets@v2.0.2
+      uses: AButler/upload-release-assets@v2.0
       if: github.event_name == 'release'
       with:
         release-tag: ${{ env.MLRUNSETUP_TAG }}
