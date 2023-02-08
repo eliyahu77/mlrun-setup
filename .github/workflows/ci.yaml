@@ -62,8 +62,5 @@ jobs:
       with:
         release-tag: ${{ env.MLRUNSETUP_TAG }}
         files: dist/*
-        repo-token: ${{ secrets.GITHUB_TOKEN }      
-      
-#    - uses: actions/upload-artifact@v2
-#      with:
-#        path: dist/*
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+  
