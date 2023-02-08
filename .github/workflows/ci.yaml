@@ -1,5 +1,11 @@
 on:
+  release:
+    types:
+      - created
+  # Create unstable release on push to development
   push:
+    branches:
+    - development
 
 jobs:
   build:
@@ -7,13 +13,41 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['ubuntu-latest']
+        arch: [ amd64 ]
+        os: [ linux, darwin ]      
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+
+    - name: Dump github context
+      run: echo "$GITHUB_CONTEXT"
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+
+    - name: Dump runner context
+      run: echo "$RUNNER_CONTEXT"
+      env:
+        RUNNER_CONTEXT: ${{ toJson(runner) }}
+
+    - name: Dump github ref
+      run: echo "$GITHUB_REF"
+
+    - name: Extract ref info
+      run: |
+        echo "REF_BRANCH=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" | tee -a $GITHUB_ENV
+        echo "REF_TAG=$(echo ${GITHUB_REF#refs/tags/} | tr / -)" | tee -a $GITHUB_ENV
+
+    - name: Set MLRUNSETUP_TAG to release tag
+      if: github.event_name == 'release'
+      run: |
+        echo "MLRUNSETUP_TAG=${{ env.REF_TAG }}" >> $GITHUB_ENV
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+       
+
+    - uses: actions/setup-python@v4
       with:
-        python-version: 3.7
+        python-version: 3.10
 
     - run: pip install -r requirements.txt 
     - run: pyinstaller -F mlsetup.py
@@ -21,6 +55,14 @@ jobs:
       run: ls -ltrh 
     - name: get datat
       run: ls dist/
+      
+    - name: Upload binaries (${{ matrix.os }}:${{ matrix.arch }})
+      uses: AButler/upload-release-assets@v2.0.2
+      if: github.event_name == 'release'
+      with:
+        release-tag: ${{ env.MLRUNSETUP_TAG }}
+        files: provctl-*
+        repo-token: ${{ secrets.GITHUB_TOKEN }      
       
 #    - uses: actions/upload-artifact@v2
 #      with:
