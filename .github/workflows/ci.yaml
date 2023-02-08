@@ -54,13 +54,13 @@ jobs:
     - name: get datat
       run: ls -ltrh 
     - name: get datat
-      run: ls dist/
+      run: cp  dist/mlsetup  mlsetup-${{ matrix.arch }}
       
     - name: Upload binaries (${{ matrix.os }}:${{ matrix.arch }})
       uses: AButler/upload-release-assets@v2.0
       if: github.event_name == 'release'
       with:
         release-tag: ${{ env.MLRUNSETUP_TAG }}
-        files: dist/*
+        files: mlsetup-${{ matrix.arch }}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
   
