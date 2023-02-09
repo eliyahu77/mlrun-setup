@@ -68,7 +68,7 @@ jobs:
       fail-fast: false
       matrix:
         arch: [ amd64 ]
-        os: [ macos ]
+        os: [ darwin ]
 
     steps:
 
@@ -110,14 +110,13 @@ jobs:
 
       - run: |
           brew install coreutils
-          uname -m
-          echo $(sha256sum mlsetup-${{matrix.os}}-${{ matrix.arch }} | awk '{ print $1 }') >> sha256sum-macos-amd64.txt
+          echo $(sha256sum mlsetup-${{matrix.os}}-${{ matrix.arch }} | awk '{ print $1 }') >> sha256sum-darwin-amd64.txt
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: mlsetup-${{matrix.os}}-${{ matrix.arch }},sha256sum-macos-amd64.txt
+          files: mlsetup-${{matrix.os}}-${{ matrix.arch }},sha256sum-darwin-amd64.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
