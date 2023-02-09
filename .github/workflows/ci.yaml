@@ -110,7 +110,7 @@ jobs:
     
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') || env.REF_BRANCH == 'development'
         with:
           files: mlsetup-${{matrix.os}}-${{ matrix.arch }}
         env:
