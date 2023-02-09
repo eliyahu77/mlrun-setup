@@ -99,7 +99,7 @@ jobs:
 
       - uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.8
 
       - run: pip install -r requirements.txt 
       - run: pyinstaller -F mlsetup.py
