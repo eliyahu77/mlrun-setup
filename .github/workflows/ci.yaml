@@ -82,7 +82,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: mlsetup-${{ matrix.arch }}
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
 #     - name: "Upload  binarys"
 # #       if: inputs.upload-repo == false
