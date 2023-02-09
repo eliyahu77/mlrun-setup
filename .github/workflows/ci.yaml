@@ -63,7 +63,7 @@ jobs:
     if: github.repository == 'eliyahu77/mlrun-setup' 
     permissions:
       contents: write  # for softprops/action-gh-release to create GitHub release    
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
