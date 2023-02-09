@@ -57,13 +57,19 @@ jobs:
       - name: get datat
         run: cp  dist/mlsetup  mlsetup-${{ matrix.arch }}
       
-      - name: Upload binaries (${{ matrix.os }}:${{ matrix.arch }})
-        uses: AButler/upload-release-assets@v2.0
-        if: github.event_name == 'release'
+#       - name: Upload binaries (${{ matrix.os }}:${{ matrix.arch }})
+#         uses: AButler/upload-release-assets@v2.0
+#         if: github.event_name == 'release'
+#         with:
+#           files: mlsetup-${{ matrix.arch }}
+#           repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: mlsetup-${{ matrix.arch }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-        
+
         
 #     - name: "Upload  binarys"
 # #       if: inputs.upload-repo == false
