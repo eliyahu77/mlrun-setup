@@ -119,7 +119,7 @@ jobs:
       - name: Release Unstable
         uses: softprops/action-gh-release@v1
         if:  env.REF_BRANCH == 'development'
-        tag_name: 'refs/tags/unstable'
+        name: unstable
         with:
           files: mlsetup-${{matrix.os}}-${{ matrix.arch }}
         env:
