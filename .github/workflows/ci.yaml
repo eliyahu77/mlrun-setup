@@ -125,7 +125,7 @@ jobs:
       - name: Checkout code
         if:  env.REF_BRANCH == 'development'
         uses: actions/checkout@v3
-        ref: 'unstable'
+        ref: 'refs/tags/unstable'
 
       - name: Release Unstable
         uses: softprops/action-gh-release@v1
