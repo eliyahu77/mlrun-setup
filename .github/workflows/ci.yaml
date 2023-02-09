@@ -13,15 +13,19 @@ on:
 # defaults:
 #   run:
 #     shell: bash
+permissions: read-all
 
-permissions:
-  contents: read
+# permissions:
+#   contents: read
 
 
 
 
 jobs:
   build:
+    if: github.repository == 'eliyahu77/mlrun-setup' 
+    permissions:
+      contents: write  # for softprops/action-gh-release to create GitHub release    
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -54,10 +58,7 @@ jobs:
       - name: Set MLRUNSETUP_TAG to release tag
         if: github.event_name == 'release'
         run: |
-          echo "MLRUNSETUP_TAG=${{ env.REF_TAG }}" >> $GITHUB_ENV
-
-
-       
+          echo "MLRUNSETUP_TAG=${{ env.REF_TAG }}" >> $GITHUB_ENV     
 
       - uses: actions/setup-python@v4
         with:
