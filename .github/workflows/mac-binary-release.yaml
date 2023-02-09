@@ -117,7 +117,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: mlsetup-${{matrix.os}}-${{ matrix.arch }},sha256sum-amd64.txt
+          files: mlsetup-${{matrix.os}}-${{ matrix.arch }},sha256sum-macos-amd64.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
